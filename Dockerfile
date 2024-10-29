@@ -12,6 +12,4 @@ EXPOSE 5000
 
 COPY . .
 
-# RUN ["python", "-m", "unittest"]
-
 CMD ["flask", "run"]
