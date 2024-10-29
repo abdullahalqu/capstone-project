@@ -39,6 +39,29 @@ services:
     profiles:
       - unittest
     command: python -m unittest
+
+  # web-r:
+  #   image: devabdullahq/flask-app-ci:latest
+  #   container_name: web
+  #   networks:
+  #     - fullstack-app
+      
+  #   ports:
+  #     - "80:5000"
+  #   environment: 
+  #     - REDIS_HOST=redis
+
+  #   depends_on: [db, redis]
+
+  app-test:
+    image: devabdullahq/flask-app-ci:latest
+    container_name: my_flask_app_test
+    networks:
+      - fullstack-app
+    profiles:
+      - test
+    entrypoint: ["/bin/sh", "-c"]
+    command: "python -m unittest"
   
   
   redis: 
