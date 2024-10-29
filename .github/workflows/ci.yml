@@ -10,6 +10,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Web Unit tests
         run: docker compose run unittest
+      - name: Clean up after unittest
+        run: docker compose down --remove-orphans --volumes
 
   docker:
     runs-on: ubuntu-latest
@@ -30,11 +32,11 @@ jobs:
         with:
           context: .
           push: true
-          platforms: linux/amd64,linux/arm64  
+          platforms: linux/amd64,linux/arm64
           tags: |
             devabdullahq/flask-app-ci:latest
             devabdullahq/flask-app-ci:${{ github.sha }}
-          cache-from: type=registry,ref=devabdullahq/flask-app-ci:latest  
-          cache-to: type=inline  
+          cache-from: type=registry,ref=devabdullahq/flask-app-ci:latest
+          cache-to: type=inline
       - name: Run Docker Compose
         run: docker compose up -d
