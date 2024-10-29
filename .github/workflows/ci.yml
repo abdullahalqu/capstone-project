@@ -28,10 +28,13 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: .
           push: true
+          platforms: linux/amd64,linux/arm64  
           tags: |
             devabdullahq/flask-app-ci:latest
-            devabdullahq/flask-app-ci:${{ github.sha}}
-# cache-from: devabdullahq/flask-app-ci:latest
+            devabdullahq/flask-app-ci:${{ github.sha }}
+          cache-from: type=registry,ref=devabdullahq/flask-app-ci:latest  
+          cache-to: type=inline  
       - name: Run Docker Compose
         run: docker compose up -d
