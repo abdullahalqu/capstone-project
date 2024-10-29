@@ -26,8 +26,8 @@ jobs:
         run: |
           ssh-keyscan -H ${{ matrix.ips }} >> ~/.ssh/known_hosts
 
-      - name: Pull new build
-        run: |
+      - name: Pull and run new build
+        run: | 
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ matrix.ips }} "
           docker run -d --rm  \
           -e REDIS_HOST=redis \
