@@ -29,6 +29,7 @@ jobs:
       - name: Pull and run new build
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ matrix.ips }} "
+          docker stop $(docker ps -q)
           docker rm -f $(docker ps -aq)
           docker run -d --rm  \
           --env-file /.env \
