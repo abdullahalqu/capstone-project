@@ -27,8 +27,9 @@ jobs:
           ssh-keyscan -H ${{ matrix.ips }} >> ~/.ssh/known_hosts
 
       - name: Pull and run new build
-        run: | 
+        run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/temp_key ${{ secrets.SSH_USERNAME }}@${{ matrix.ips }} "
+          docker rm -f $(docker ps -aq)
           docker run -d --rm  \
           --env-file /.env \
           -p 80:5000 \
