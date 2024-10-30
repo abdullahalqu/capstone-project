@@ -1,24 +1,4 @@
 services:
-  db:
-    image: mysql
-    networks:
-      fullstack-app:
-        aliases:
-          - db
-    container_name: mysql-db
-    restart: always
-    environment:
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: password 
-    ports:
-      - 3306:3306
-    expose:
-      - 3306
-    volumes:
-      - mysql-db:/var/lib/mysql
-
   web:
     image: devabdullahq/flask-app-ci:latest
     container_name: web
@@ -40,6 +20,25 @@ services:
     profiles:
       - unittest
     command: ["python", "-m", "unittest"]
+  db:
+    image: mysql
+    networks:
+      fullstack-app:
+        aliases:
+          - db
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - mysql-db:/var/lib/mysql
 
   redis:
     image: redis
