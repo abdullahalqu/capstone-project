@@ -14,7 +14,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     strategy:
       matrix:
-        ips: [10.0.2.224, 10.0.2.223]
+        ips: [10.0.2.62, 10.0.2.61]
     steps:
       - name: Create SSH key file
         run: |
